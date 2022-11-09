@@ -11,8 +11,7 @@ class Menu():
     def __get_selection(self):
         self.selection = self.items[self.__get_input() - 1]
     def __get_input(self):
-        isValid = False
-        while not isValid:
+        while True:
             try:
                 return int(input(f"Выбор: "))
             except:
