@@ -4,6 +4,7 @@ from Solution.NumbaSolution import NumbaSolution
 from Solution.OpenCVSolution import OpenCVSolution
 from Solution.PythonSolution import PythonSolution
 
+#TODO
 kernel = None
 end_menu = None
 start_menu = None
@@ -32,10 +33,12 @@ def main():
             print(f"Для алгоритма: {algorithm_menu.selection}\n Реализованного с помощью: {realisation_menu.selection}\n Время выполнения составило {solution.time} с.")
             while end_menu.selection != "Перезапустить":
                 end_menu.show()
-                if end_menu.selection == "Посмотреть результат":
-                    solution.show_result()
+                if end_menu.selection == "Посмотреть исходное изображение":
+                    solution.show_source()
+                elif end_menu.selection == "Посмотреть результат":
+                    solution.show_result(algorithm_menu.selection, realisation_menu.selection)
                 elif end_menu.selection == "Сохранить результат":
-                    solution.save_result()
+                    solution.save_result(algorithm_menu.selection, realisation_menu.selection)
                 elif end_menu.selection == "Перезапустить":
                     pass
                 elif end_menu.selection == "Выйти":
@@ -46,7 +49,8 @@ def main():
 if __name__ == "__main__":
     end_menu = Menu(
         name="Конец", 
-        items=["Посмотреть результат", 
+        items=["Посмотреть исходное изображение", 
+                "Посмотреть результат", 
                 "Сохранить результат", 
                 "Перезапустить", 
                 "Выйти"])
