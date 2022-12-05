@@ -40,8 +40,11 @@ class Solution():
         while True:
             try:
                 self.path = input(f"Путь к файлу: ")
-                self.source_image = cv2.imread(self.path)
-                return
+                if os.path.isfile(self.path):
+                    self.source_image = cv2.imread(self.path)
+                    return
+                else:
+                    print(f"Некорректный путь!")    
             except:
                 print(f"Некорректный путь!")
 

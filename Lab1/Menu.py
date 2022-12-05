@@ -9,7 +9,12 @@ class Menu():
             print(f"    {item[0] + 1}. {item[1]}")
         self.__get_selection()
     def __get_selection(self):
-        self.selection = self.items[self.__get_input() - 1]
+        while True:
+            try:
+                self.selection = self.items[self.__get_input() - 1]
+                return
+            except:
+                print(f"Некорректный ввод!")
     def __get_input(self):
         while True:
             try:
