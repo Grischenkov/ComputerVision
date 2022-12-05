@@ -1,10 +1,10 @@
 import cv2
 
-from Menu import Menu
+from menu import Menu
 
-from Solution.NumbaSolution import NumbaSolution
-from Solution.OpenCVSolution import OpenCVSolution
-from Solution.PythonSolution import PythonSolution
+from solution.numba_solution import NumbaSolution
+from solution.open_cv_solution import OpenCVSolution
+from solution.python_solution import PythonSolution
 
 end_menu = None
 start_menu = None

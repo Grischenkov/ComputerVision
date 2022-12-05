@@ -1,7 +1,7 @@
 import cv2
 import time
 
-from Solution.Solution import Solution
+from solution.solution import Solution
 
 class OpenCVSolution(Solution):
     def __init__(self):

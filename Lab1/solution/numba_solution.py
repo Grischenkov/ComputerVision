@@ -2,9 +2,11 @@ import cv2
 import time
 import numpy as np
 
-from Solution.Solution import Solution
+from numba import njit
 
-class PythonSolution(Solution):
+from solution.solution import Solution
+
+class NumbaSolution(Solution): 
     def __init__(self):
         super().__init__()
     def process(self, kernel):
@@ -18,18 +20,18 @@ class PythonSolution(Solution):
                 start_time = time.time()
                 frame = solution(frame, kernel)
                 end_time = time.time() - start_time
-                print(f"Frame: {n_frames}, time: {end_time}")
                 self.time += end_time
             else:
                 retval, frame = cv2.threshold(cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY), 127, 255, cv2.THRESH_BINARY)
             if cv2.waitKey(119) == ord('w'):
                 key = not key
-            cv2.imshow(f"Result file (Python)", frame)
+            cv2.imshow(f"Result file (Numba)", frame)
             ret, frame = self.source_file.read()
         self.source_file.release()
         cv2.destroyAllWindows()
         self.time /= n_frames
-    
+
+@njit
 def solution(frame, kernel):
     y = kernel.shape[0] // 2
     x = kernel.shape[1] // 2
