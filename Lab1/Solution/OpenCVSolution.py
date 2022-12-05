@@ -6,11 +6,28 @@ from Solution.Solution import Solution
 class OpenCVSolution(Solution):
     def __init__(self):
         super().__init__()
-    def dilation(self, kernel):
-        start_time = time.time()
-        self.result_image = cv2.dilate(self.source_image, kernel)
-        self.time = time.time() - start_time
-    def binarization(self):
-        start_time = time.time()
-        retval, self.result_image = cv2.threshold(cv2.cvtColor(self.source_image, cv2.COLOR_BGR2GRAY), 127, 255, cv2.THRESH_BINARY)
-        self.time = time.time() - start_time
+    def process(self, kernel):
+        key = True
+        n_frames = 0
+        self.time = 0
+        ret, frame = self.source_file.read()
+        while(ret):
+            if key:
+                n_frames += 1
+                start_time = time.time()
+                frame = solution(frame, kernel)
+                end_time = time.time() - start_time
+                self.time += end_time
+            else:
+                retval, frame = cv2.threshold(cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY), 127, 255, cv2.THRESH_BINARY)
+            if cv2.waitKey(119) == ord('w'):
+                key = not key
+            cv2.imshow(f"Result file (OpenCV)", frame)
+            ret, frame = self.source_file.read()
+        self.source_file.release()
+        cv2.destroyAllWindows()
+        self.time /= n_frames
+
+def solution(frame, kernel):
+    frame = cv2.dilate(frame, kernel)
+    return frame
