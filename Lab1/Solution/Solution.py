@@ -56,7 +56,7 @@ class Solution():
     def save_result_image(self, algorithm, realisation):
         cv2.imwrite(f"{os.path.splitext(self.path)[0]}_{algorithm}_{realisation}{os.path.splitext(self.path)[1]}", self.result_image)
 
-    def dilatation(self, kernel):
+    def dilation(self, kernel):
         pass
 
     def binarization(self):
