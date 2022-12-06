@@ -1,27 +1,48 @@
 import cv2
 
 import numpy as np
+import pandas as pd
+
 import matplotlib.pyplot as plt
 
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 
 from solution.solution import Solution
 
-class MatchTemplateSolution(Solution):
+class SiftSolution(Solution):
     def __init__(self):
         super().__init__()
     def process(self):
         image = np.copy(self.source_image)
         template = np.copy(self.source_template)
 
-        w, h, ch = template.shape
+        sift = cv2.SIFT_create()
 
-        result = cv2.matchTemplate(cv2.cvtColor(image, cv2.COLOR_BGR2GRAY), cv2.cvtColor(template, cv2.COLOR_BGR2GRAY), cv2.TM_CCOEFF_NORMED)
-        min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
+        kp1, des1 = sift.detectAndCompute(cv2.cvtColor(image, cv2.COLOR_BGR2GRAY), None)
+        kp2, des2 = sift.detectAndCompute(cv2.cvtColor(template, cv2.COLOR_BGR2GRAY), None)
 
-        bottom_right = (max_loc[0] + w, max_loc[1] + h)
-        
-        cv2.rectangle(image, max_loc, bottom_right, 255, 2)
+        des1 = np.uint8(des1 * 255)
+        des2 = np.uint8(des2 * 255)
+
+        bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
+
+        matches = bf.match(des1, des2)
+        matches = sorted(matches, key=lambda x: x.distance)
+
+        point_list = []
+        for m in matches[:10]:
+            point_list.append(m.queryIdx)
+        c_list = cv2.KeyPoint_convert(kp1)
+        needed_c_list = []
+        for p in point_list:
+            needed_c_list.append(c_list[p])
+
+        df = pd.DataFrame(needed_c_list, columns=['x', 'y'])
+        y_max, y_min = int(df.y.max()), int(df.y.min())
+        x_max, x_min = int(df.x.max()), int(df.x.min())
+
+        image = cv2.rectangle(image, (x_max, y_max), (x_min, y_min), color=(255, 55, 0), thickness=15)
+        image = cv2.drawMatches(image, kp1, template, kp2, matches[:10], None, flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)
 
         f, ax = plt.subplots(1, 3, figsize=(50, 25))
         ax[0].imshow(cv2.cvtColor(self.source_image, cv2.COLOR_BGR2RGB))
