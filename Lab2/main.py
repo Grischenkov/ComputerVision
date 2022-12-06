@@ -27,9 +27,7 @@ def main():
             while end_menu.selection != "Перезапустить":
                 end_menu.show()
                 if end_menu.selection == "Посмотреть результат":
-                    solution.show_result()
-                elif end_menu.selection == "Сохранить результат":
-                    solution.save_result(realisation_menu.selection)
+                    solution.show_result(realisation_menu.selection)
                 elif end_menu.selection == "Перезапустить":
                     pass
                 elif end_menu.selection == "Выйти":
@@ -41,7 +39,6 @@ if __name__ == "__main__":
     end_menu = Menu(
         name="Конец", 
         items=["Посмотреть результат",
-                "Сохранить результат",
                 "Перезапустить", 
                 "Выйти"])
     start_menu = Menu(
