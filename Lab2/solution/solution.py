@@ -62,17 +62,11 @@ class Solution():
                 print(f"Некорректный путь!")
 
     def show_result(self, algorithm):
-        f, ax = plt.subplots(1, 3, figsize=(10, 10))
-        ax[0].imshow(cv2.cvtColor(self.source_image, cv2.COLOR_BGR2RGB))
-        ax[0].set_title("Source"); plt.grid(None)
-        ax[0].set_xticks([]); ax[0].set_yticks([])
-        ax[1].imshow(cv2.cvtColor(self.source_template, cv2.COLOR_BGR2RGB))
-        ax[1].set_title("Template"); plt.grid(None)
-        ax[1].set_xticks([]); ax[1].set_yticks([])
-        ax[2].imshow(cv2.cvtColor(self.result_image, cv2.COLOR_BGR2RGB))
-        ax[2].set_title(f"Result ({algorithm})"); plt.grid(None)
-        ax[2].set_xticks([]); ax[1].set_yticks([])
-        plt.show()
+        f, ax = plt.subplots()
+        ax.imshow(self.result_image)
+        ax.set_title(f"{algorithm}"); plt.grid(None)
+        ax.set_xticks([]); ax.set_yticks([])
+        f.show()
 
     def process(self):
         pass
