@@ -1,5 +1,5 @@
 import cv2
-
+import time
 import numpy as np
 import pandas as pd
 import tensorflow as tf
@@ -8,6 +8,7 @@ from tensorflow.keras.applications.imagenet_utils import decode_predictions
 
 class Solution():
     def __init__(self, w, h, model):
+        self.__time = 0
         self.__image_w = w
         self.__image_h = h
         self.__prediction = []
@@ -31,14 +32,16 @@ class Solution():
         self.__y = np.array(df['class'].values)
 
     def process(self):
+        start_time = time.time()
         self.__prediction = decode_predictions(self.__model.predict(self.__x))
         self.__top1_acc = self.__get_topK_acc(1)
         self.__top5_acc = self.__get_topK_acc(5)
+        self.__time = time.time() - start_time
         if self.__memory != 'No GPU available!':
             self.__memory = tf.config.experimental.get_memory_info('GPU:0')['peak'] / (1024 ** 3)
     
     def describe(self):
-        return f"   Top-1 accuracy: {self.__top1_acc}\n   Top-5 accuracy: {self.__top5_acc}\n    Memory usage: {self.__memory} gb"
+        return f"   Top-1 accuracy: {self.__top1_acc}\n   Top-5 accuracy: {self.__top5_acc}\n   Memory usage: {self.__memory} gb\n   Time: {self.__time} c"
 
     def __get_topK_acc(self, k):
         acc = 0.0

@@ -1,5 +1,3 @@
-import cv2
-
 from menu import Menu
 
 from solution.match_template_solution import MatchTemplateSolution
