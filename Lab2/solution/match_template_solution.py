@@ -13,7 +13,7 @@ class MatchTemplateSolution(Solution):
         image = np.copy(self.source_image)
         template = np.copy(self.source_template)
 
-        w, h, ch = template.shape
+        h, w, ch = template.shape
 
         result = cv2.matchTemplate(cv2.cvtColor(image, cv2.COLOR_BGR2GRAY), cv2.cvtColor(template, cv2.COLOR_BGR2GRAY), cv2.TM_CCOEFF_NORMED)
         min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
