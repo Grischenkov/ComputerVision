@@ -12,14 +12,13 @@ class OpenCVSolution(Solution):
         self.time = 0
         ret, frame = self.source_file.read()
         while(ret):
+            retval, frame = cv2.threshold(cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY), 127, 255, cv2.THRESH_BINARY)
             if key:
                 n_frames += 1
                 start_time = time.time()
                 frame = solution(frame, kernel)
                 end_time = time.time() - start_time
                 self.time += end_time
-            else:
-                retval, frame = cv2.threshold(cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY), 127, 255, cv2.THRESH_BINARY)
             if cv2.waitKey(119) == ord('w'):
                 key = not key
             cv2.imshow(f"Result file (OpenCV)", frame)
