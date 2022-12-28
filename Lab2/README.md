@@ -62,21 +62,45 @@
 После применения алгоритма SIFT мы получаем массив дескрипторов и ключевых точек для изображения. Применяем алгоритма для исходного и шаблонного изображений. Затем получим разности между дескриторами путём использования метода match класса BFMatcher (Brute Force Matcher). Возбмём 10 ближайших дескрипторов. По ним определяем точки на исходном и шаблонном изображении, которые "похожи" друг надруга сильнее всего.
 
 ## Результаты
+
 MatchTemplate:
 
-![Alt text](images/mt_sample_1.png?raw=true "MatchTemplate")
-![Alt text](images/mt_sample_2.png?raw=true "MatchTemplate")
-![Alt text](images/mt_sample_3.png?raw=true "MatchTemplate")
+| Результат                                                         | Оценка |
+| ----------------------------------------------------------------  | ------ |
+| ![Alt text](images/MatchTemplate/1.png?raw=true "MatchTemplate")  |    -   |
+| ![Alt text](images/MatchTemplate/2.png?raw=true "MatchTemplate")  |    +   |
+| ![Alt text](images/MatchTemplate/3.png?raw=true "MatchTemplate")  |    +   |
+| ![Alt text](images/MatchTemplate/4.png?raw=true "MatchTemplate")  |    +   |
+| ![Alt text](images/MatchTemplate/5.png?raw=true "MatchTemplate")  |    -   |
+| ![Alt text](images/MatchTemplate/6.png?raw=true "MatchTemplate")  |    +   |
+| ![Alt text](images/MatchTemplate/7.png?raw=true "MatchTemplate")  |    +   |
+| ![Alt text](images/MatchTemplate/8.png?raw=true "MatchTemplate")  |    -   |
+| ![Alt text](images/MatchTemplate/9.png?raw=true "MatchTemplate")  |    -   |
+| ![Alt text](images/MatchTemplate/10.png?raw=true "MatchTemplate") |    -   |
 
 SIFT:
 
-![Alt text](images/sift_sample_1.png?raw=true "SIFT")
-![Alt text](images/sift_sample_2.png?raw=true "SIFT")
-![Alt text](images/sift_sample_3.png?raw=true "SIFT")
-![Alt text](images/sift_sample_4.png?raw=true "SIFT")
+| Результат                                       | Оценка |
+| ----------------------------------------------  | ------ |
+| ![Alt text](images/SIFT/1.png?raw=true "SIFT")  |    -   |
+| ![Alt text](images/SIFT/2.png?raw=true "SIFT")  |    +   |
+| ![Alt text](images/SIFT/3.png?raw=true "SIFT")  |    +   |
+| ![Alt text](images/SIFT/4.png?raw=true "SIFT")  |    +   |
+| ![Alt text](images/SIFT/5.png?raw=true "SIFT")  |    -   |
+| ![Alt text](images/SIFT/6.png?raw=true "SIFT")  |    -   |
+| ![Alt text](images/SIFT/7.png?raw=true "SIFT")  |    +   |
+| ![Alt text](images/SIFT/8.png?raw=true "SIFT")  |    +   |
+| ![Alt text](images/SIFT/9.png?raw=true "SIFT")  |    +   |
+| ![Alt text](images/SIFT/10.png?raw=true "SIFT") |    +   |
 
 ## Выводы
-В результате проделанной работы было реализовано две функции детектирования объектов с применением алгоритмов MatchTemplate и SIFT. По результатам можно рекомендовать использовать алгоритм SIFT для большинства случаев, однако стоит заметить, что его качество можно значительно улучшить, если шаблон будет содержать максимально приближенный детектируемый объект.
+
+| Алгоритм      | Верных обнаружений | Неверных обнаружений |
+| ------------- | ------------------ | -------------------- |
+| MatchTemplate | 5                  | 5                    |
+| SIFT          | 7                  | 3                    |
+
+В результате проделанной работы было реализовано две функции детектирования объектов с применением алгоритмов MatchTemplate и SIFT. По результатам можно рекомендовать использовать алгоритм SIFT для большинства случаев (7 верных детекций из 10), однако стоит заметить, что его качество можно значительно улучшить, если шаблон будет содержать максимально приближенный детектируемый объект.
 
 ## Список используемых источников
 * https://habr.com/ru/post/106302/
